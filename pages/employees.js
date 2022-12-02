@@ -6,45 +6,38 @@ import { client } from '../lib/apolloClient'
 
 const GET_EMPLOYESS = gql`
 query getEmployees {
-    employees(first: 10, after: null) {
-        nodes {
-          ...EmployeeFields
-        }
-      }
+  employees(first: 10) {
+    nodes {
+      ...EmployeeFields
+    }
+  }
 }
 
 fragment EmployeeFields on Employee {
-    name
-    position
-    profileImage {
-      mediaItemId
-      mediaItemUrl
-      altText
-      caption
-      description
-      mediaDetails {
+  name
+  position
+  databaseId
+  profileImage {
+    mediaItemUrl
+    altText
+    caption
+    description
+    mediaDetails {
+      height
+      width
+      sizes {
+        file
+        fileSize
         height
+        mimeType
+        name
+        sourceUrl
         width
-        sizes {
-          file
-          fileSize
-          height
-          mimeType
-          name
-          sourceUrl
-          width
-        }
-      }
-    }
-    about
-    taskList {
-      edges {
-        node {
-          id
-        }
       }
     }
   }
+  about
+}
 `
 
 export default function Employees(props) {
